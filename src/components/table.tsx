@@ -43,7 +43,7 @@ export const Table = () => {
   return (
     <>
       <div className="flex flex-col gap-1.5">
-        <Label htmlFor="points" className="text-lg">
+        <Label htmlFor="points">
           How many points is the team on currently?
         </Label>
         <Input
