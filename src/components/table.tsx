@@ -2,7 +2,7 @@
 
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const placements = [1, 5, 10, 20, 30, 40] as const;
 type Placements = (typeof placements)[number];
@@ -27,19 +27,22 @@ const formattedPlacement: Record<Placements, string> = {
 
 export const Table = () => {
   const [points, setPoints] = useState<number>(0);
+  const inputRef = useRef<null | HTMLInputElement>(null);
   const onPointsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.valueAsNumber;
     if (isNaN(value)) value = 0;
     else if (value < 0) value = 0;
-    console.log(value);
     setPoints(value);
+  };
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      inputRef.current?.blur();
+    }
   };
   return (
     <>
-      <form
-        className="flex flex-col gap-1.5"
-        onSubmit={(e) => e.preventDefault()}
-      >
+      <div className="flex flex-col gap-1.5">
         <Label htmlFor="points">
           How many points is the team on currently?
         </Label>
@@ -49,8 +52,10 @@ export const Table = () => {
           type="number"
           value={points !== 0 ? points : ""}
           onChange={onPointsChange}
+          onKeyDown={onKeyDown}
+          ref={inputRef}
         />
-      </form>
+      </div>
       <table>
         <thead>
           <tr>
