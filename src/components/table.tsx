@@ -51,20 +51,18 @@ export const Table = () => {
       <table>
         <thead>
           <tr>
-            <th className="w-1/4 border-b border-muted p-2 text-left">
-              Placement
-            </th>
-            <th className="w-1/4 border-b border-muted p-2 text-right">
+            <th className="border-b border-muted p-2 text-left">Placement</th>
+            <th className="border-b border-muted p-2 text-right">
               Multiplier{" "}
             </th>
-            <th className="w-1/2 border-b border-muted p-2 text-right">
-              Kills Needed
+            <th className="border-b border-muted p-2 text-right">
+              Frags Needed
             </th>
           </tr>
         </thead>
         <tbody>
           {placements.map((placement) => {
-            const killsNeeded = Math.ceil(
+            const fragsNeeded = Math.ceil(
               Math.max(150 - points, 0) / multipliers[placement],
             );
             return (
@@ -79,7 +77,7 @@ export const Table = () => {
                   {multipliers[placement]}
                 </td>
                 <td className="border-b border-muted p-3 text-right font-medium text-primary">
-                  {killsNeeded}
+                  {fragsNeeded}
                 </td>
               </tr>
             );

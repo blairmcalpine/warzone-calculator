@@ -5,8 +5,8 @@ import { Card, CardDescription, CardTitle } from "~/components/ui/card";
 
 export default function HomePage() {
   return (
-    <main className="flex h-dvh flex-col items-center justify-center">
-      <Card className="flex h-dvh flex-col gap-8 p-6 md:h-auto md:gap-10 md:p-8">
+    <main className="flex min-h-dvh flex-col items-center justify-center">
+      <Card className="flex min-h-dvh flex-col gap-8 p-6 md:min-h-fit md:gap-10 md:p-8">
         <div className="flex flex-col gap-1.5">
           <CardTitle className="text-5xl">Warzone Point Calculator</CardTitle>
           <CardDescription className="text-xl">
