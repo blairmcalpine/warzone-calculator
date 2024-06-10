@@ -11,7 +11,7 @@ export default function HomePage() {
           <CardTitle className="text-4xl md:text-5xl">
             Warzone Point Calculator
           </CardTitle>
-          <CardDescription className="text-xl">
+          <CardDescription className="text-lg">
             Using a match point threshold of{" "}
             <span className="font-medium text-primary">150</span>
           </CardDescription>

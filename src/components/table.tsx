@@ -43,7 +43,7 @@ export const Table = () => {
   return (
     <>
       <div className="flex flex-col gap-1.5">
-        <Label htmlFor="points">
+        <Label htmlFor="points" className="text-lg">
           How many points is the team on currently?
         </Label>
         <Input
@@ -54,6 +54,7 @@ export const Table = () => {
           onChange={onPointsChange}
           onKeyDown={onKeyDown}
           ref={inputRef}
+          className="text-lg"
         />
       </div>
       <table>
