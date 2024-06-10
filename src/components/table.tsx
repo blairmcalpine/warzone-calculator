@@ -59,11 +59,11 @@ export const Table = () => {
       <table>
         <thead>
           <tr>
-            <th className="border-b border-muted p-2 text-left">Placement</th>
-            <th className="border-b border-muted p-2 text-right">
+            <th className="border-b border-muted py-3 text-left">Placement</th>
+            <th className="border-b border-muted py-3 text-right">
               Multiplier{" "}
             </th>
-            <th className="border-b border-muted p-2 text-right">
+            <th className="border-b border-muted py-3 text-right">
               Frags Needed
             </th>
           </tr>
@@ -77,14 +77,14 @@ export const Table = () => {
               <tr key={placement}>
                 <td
                   key={placement}
-                  className="border-b border-muted p-3 text-left"
+                  className="border-b border-muted py-3 text-left"
                 >
                   {formattedPlacement[placement]}
                 </td>
-                <td className="border-b border-muted p-3 text-right">
+                <td className="border-b border-muted py-3 text-right">
                   {multipliers[placement]}
                 </td>
-                <td className="border-b border-muted p-3 text-right font-medium text-primary">
+                <td className="border-b border-muted py-3 text-right font-medium text-primary">
                   {fragsNeeded}
                 </td>
               </tr>

@@ -8,7 +8,9 @@ export default function HomePage() {
     <main className="flex min-h-dvh flex-col items-center justify-center">
       <Card className="flex min-h-dvh flex-col gap-8 p-6 md:min-h-fit md:gap-10 md:p-8">
         <div className="flex flex-col gap-1.5">
-          <CardTitle className="text-5xl">Warzone Point Calculator</CardTitle>
+          <CardTitle className="text-4xl md:text-5xl">
+            Warzone Point Calculator
+          </CardTitle>
           <CardDescription className="text-xl">
             Using a match point threshold of{" "}
             <span className="font-medium text-primary">150</span>
