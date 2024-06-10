@@ -36,8 +36,11 @@ export const Table = () => {
   };
   return (
     <>
-      <div className="flex flex-col gap-1.5">
-        <Label htmlFor="points" className="">
+      <form
+        className="flex flex-col gap-1.5"
+        onSubmit={(e) => e.preventDefault()}
+      >
+        <Label htmlFor="points">
           How many points is the team on currently?
         </Label>
         <Input
@@ -47,7 +50,7 @@ export const Table = () => {
           value={points !== 0 ? points : ""}
           onChange={onPointsChange}
         />
-      </div>
+      </form>
       <table>
         <thead>
           <tr>
