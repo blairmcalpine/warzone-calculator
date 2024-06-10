@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { GitHub } from "~/components/icons/github";
 import { Table } from "~/components/table";
 import { Card, CardDescription, CardTitle } from "~/components/ui/card";
@@ -14,10 +15,14 @@ export default function HomePage() {
           </CardDescription>
         </div>
         <Table />
-        <h3 className="text-md flex w-full items-center justify-center gap-3 tracking-tight text-muted-foreground">
+        <Link
+          className="text-md flex w-full items-center justify-center gap-3 tracking-tight text-muted-foreground"
+          href="https://github.com/blairmcalpine"
+          target="_blank"
+        >
           Created by Blair McAlpine
           <GitHub className="inline-block h-6 w-6" fill="currentColor" />
-        </h3>
+        </Link>
       </Card>
     </main>
   );
