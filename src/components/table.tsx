@@ -2,7 +2,9 @@
 
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
+import { parseAsInteger, useQueryState } from "nuqs";
+import { CardTitle } from "~/components/ui/card";
 
 const placements = [1, 5, 10, 20, 30, 40] as const;
 type Placements = (typeof placements)[number];
@@ -27,21 +29,63 @@ const formattedPlacement: Record<Placements, string> = {
 
 export const Table = () => {
   const [points, setPoints] = useState<number>(0);
-  const inputRef = useRef<null | HTMLInputElement>(null);
-  const onPointsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.valueAsNumber;
-    if (isNaN(value)) value = 0;
-    else if (value < 0) value = 0;
-    setPoints(value);
-  };
-  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const [threshold, setThreshold] = useQueryState(
+    "threshold",
+    parseAsInteger.withDefault(150).withOptions({ throttleMs: 100 }),
+  );
+
+  const pointsRef = useRef<null | HTMLInputElement>(null);
+  const thresholdRef = useRef<null | HTMLInputElement>(null);
+
+  const onPointsChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      let value = e.target.valueAsNumber;
+      if (isNaN(value)) value = 0;
+      else if (value < 0) value = 0;
+      setPoints(value);
+    },
+    [],
+  );
+  const onThresholdChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      let value = parseInt(e.target.value);
+      if (isNaN(value)) value = 0;
+      else if (value < 0) value = 0;
+      void setThreshold(value);
+    },
+    [setThreshold],
+  );
+  const onKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      inputRef.current?.blur();
+      pointsRef.current?.blur();
+      thresholdRef.current?.blur();
     }
-  };
+  }, []);
   return (
     <>
+      <div className="flex flex-col gap-1.5">
+        <CardTitle className="text-4xl md:text-5xl">
+          Warzone Point Calculator
+        </CardTitle>
+      </div>
+      <div className="flex flex-col gap-1.5">
+        <Label htmlFor="points">
+          What is the threshold for{" "}
+          <span className="text-primary">match point</span>?
+        </Label>
+        <Input
+          id="name"
+          placeholder="0"
+          type="number"
+          step="1"
+          value={threshold === 0 ? "" : threshold}
+          onChange={onThresholdChange}
+          onKeyDown={onKeyDown}
+          ref={thresholdRef}
+          className="text-lg"
+        />
+      </div>
       <div className="flex flex-col gap-1.5">
         <Label htmlFor="points">
           How many points is the team on currently?
@@ -53,7 +97,7 @@ export const Table = () => {
           value={points !== 0 ? points : ""}
           onChange={onPointsChange}
           onKeyDown={onKeyDown}
-          ref={inputRef}
+          ref={pointsRef}
           className="text-lg"
         />
       </div>
@@ -72,7 +116,7 @@ export const Table = () => {
         <tbody>
           {placements.map((placement) => {
             const fragsNeeded = Math.ceil(
-              Math.max(150 - points, 0) / multipliers[placement],
+              Math.max(threshold - points, 0) / multipliers[placement],
             );
             return (
               <tr key={placement}>
